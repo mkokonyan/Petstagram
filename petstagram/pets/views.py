@@ -7,7 +7,8 @@ from django.views.generic import DetailView, CreateView, FormView, ListView, Upd
 
 from petstagram.common.forms import CommentForm
 from petstagram.common.models import Comment
-from petstagram.core.views import PostOnlyView
+
+from petstagram.core.views import PostOnlyView, BootstrapFormMixin
 from petstagram.pets.forms import PetForm, EditPetForm
 from petstagram.pets.models import Pet, Like
 
@@ -151,7 +152,7 @@ def like_pet(request, pk):
     return redirect('pet details', pet.id)
 
 
-class CreatePetView(LoginRequiredMixin, CreateView):
+class CreatePetView(BootstrapFormMixin, LoginRequiredMixin, CreateView):
     model = Pet
     fields = ("name", "description", "image", "age", "type")
     success_url = reverse_lazy("list pets")
